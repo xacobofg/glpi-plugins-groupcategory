@@ -108,7 +108,7 @@ class PluginGroupcategoryGroupcategory extends CommonDBTM {
                     break;
 
                 case 'Ticket':                    
-                    plugin_groupcategory_post_show_ticket($params['item']);
+                    plugin_groupcategory_post_show_ticket($params['item'], $params['options']);
                     break;
                 default:
                 // nothing to do

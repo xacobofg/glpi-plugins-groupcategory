@@ -18,13 +18,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['requester_user_id']))
 
     $results = [];
     foreach ($user_categories as $key => $categorie) {
-        $results[] = [
-          'id' => $key,
-          'text' => $categorie
+        $cat = [
+            'id' => $key,
+            'text' => $categorie
         ];
+        if (!empty($_POST['selectedItilcategoriesId']) && $_POST['selectedItilcategoriesId']==$key) {
+            $cat['selected'] = true;
+        }
+        $results[] = $cat;
     }
     if (!empty($_POST['selectedItilcategoriesId'])) {
-        $results = [['id'=>$_POST['selectedItilcategoriesId'],'text'=>$user_categories[$_POST['selectedItilcategoriesId']]]] + $results;
+        if (!isset($user_categories[$_POST['selectedItilcategoriesId']])) {
+            $results[] = [
+                'id' => $_POST['selectedItilcategoriesId'],
+                'text' => $user_categories[$_POST['selectedItilcategoriesId']],
+                'selected' => true
+            ];
+        }
     }
     if (count($results)) {
         echo json_encode($results);

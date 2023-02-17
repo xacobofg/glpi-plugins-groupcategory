@@ -232,7 +232,7 @@ function plugin_groupcategory_group_update(Group $group)
  *
  * @param Ticket $ticket
  */
-function plugin_groupcategory_post_show_ticket(Ticket $ticket)
+function plugin_groupcategory_post_show_ticket(Ticket $ticket, $options = [])
 {
     global $CFG_GLPI;
     $get_user_categories_url = PLUGIN_GROUPCATEGORY_WEB_DIR. '/ajax/get_user_categories.php';
@@ -256,7 +256,9 @@ function plugin_groupcategory_post_show_ticket(Ticket $ticket)
     if (isset($ticket->input['itilcategories_id'])) {
         $selectedItilcategoriesId = $ticket->input['itilcategories_id'];
     }
-
+    if (isset($options['itilcategories_id'])) {
+        $selectedItilcategoriesId = $options['itilcategories_id'];
+    }
     $js_block .= ' 
         if (requester_user_id) { 
             loadAllowedCategories('.$selectedItilcategoriesId.');
